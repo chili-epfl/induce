@@ -1,33 +1,134 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: #ccc;
 }
 
-.App-link {
-  color: #61dafb;
+.title {
+  margin: 8px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.categories-container {
+  flex: 1 1 0px;
+  display: flex;
+  flex-direction: row;
+  width: calc(100% - 8px);
+  padding-left: 4px;
+  padding-right: 4px;
+  box-shadow: 0px 10px 10px -10px #666 inset, 0px -10px 10px -10px #666 inset;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 200px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  overflow: auto;
+  align-items: center;
+}
+
+.question-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+}
+
+.separator {
+  width: 0px;
+  border-radius: 4px;
+  border: 4px solid black;
+  margin-top: 16px;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-bottom: 16px;
+}
+
+.example {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  max-width: 100%;
+  background-color: #333;
+  border-radius: 8px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  box-shadow: 0px 0px 8px 0px #666;
+}
+
+.example-image {
+  position: relative;
+  height: auto;
+  width: auto;
+  max-height: 100%;
+  max-width: 100%;
+  top: 50%;
+  transform: translate(0, -50%);
+  background-color: #ddd;
+  border-radius: 8px;
+}
+
+.answer-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.answer-example {
+  width: 50%;
+}
+
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 45px solid transparent;
+  border-bottom: 45px solid transparent;
+  border-left: 45px solid black;
+}
+
+.arrow-left {
+  width: 0;
+  height: 0;
+  border-top: 45px solid transparent;
+  border-bottom: 45px solid transparent;
+  border-right: 45px solid black;
+}
+
+.div-button {
+  flex: 1 0 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #ddd;
+  border-radius: 8px;
+  margin: 4px;
+  margin-left: 8px;
+  margin-right: 8px;
+  box-shadow: 0px 0px 8px 0px #666;
+  font-size: 350%;
+}
+
+.div-button:hover {
+  background-color: #aaa;
+}
+
+.div-button:active {
+  background-color: #fff;
+}
+
+.button-red {
+  color: red;
+}
+
+.button-green {
+  color: green;
 }
