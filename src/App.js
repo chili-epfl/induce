@@ -16,6 +16,33 @@ const randHex = function() {
   return r;
 };
 
+const Start = ({ initGame }) => {
+  const [gender, setGender] = useState("none");
+
+  return (
+    <div className="container-start">
+      <span>Gender?</span>
+      <div>
+        <input type="radio" name="gender" value="male" />
+        Male
+      </div>
+      <div>
+        <input type="radio" name="gender" value="female" />
+        Female
+      </div>
+      <div>
+        <input type="radio" name="gender" value="other" />
+        Other
+      </div>
+      <span>Age?</span>
+      <input type="number" />
+      <button onClick={initGame} disabled={gender === "none"}>
+        Start
+      </button>
+    </div>
+  );
+};
+
 const CustomButton = ({ type, side, onClick, setTrick }) => {
   const [clicked, setClicked] = useState(false);
   const handleClick = () => {
@@ -45,7 +72,7 @@ const Question = ({
   correctAnswer
 }) => {
   const [trick, setTrick] = useState("none");
-
+  const shouldNotTrick = step < 36 || step > 41;
   return (
     <div className="question-container">
       <h2 className="title">
@@ -71,7 +98,7 @@ const Question = ({
       </div>
       <div className="answer-container">
         <CustomButton
-          type={trick === "right"}
+          type={shouldNotTrick || trick === "right"}
           side="left"
           onClick={onClick}
           setTrick={setTrick}
@@ -80,7 +107,7 @@ const Question = ({
           <img src={"images/" + item} alt={item} className="example-image" />
         </div>
         <CustomButton
-          type={trick === "left"}
+          type={shouldNotTrick || trick === "left"}
           side="right"
           onClick={onClick}
           setTrick={setTrick}
@@ -99,7 +126,7 @@ const GameEnd = ({ restart }) => (
 
 class App extends Component {
   state = {
-    step: 0
+    step: 36
   };
 
   username = "MISSING_ID";
@@ -134,7 +161,7 @@ class App extends Component {
     const { step } = this.state;
     return (
       <div className="App">
-        {step < 0 && <button onClick={this.initGame}>Start</button>}
+        {step < 0 && <Start initGame={this.initGame} />}
         {step >= 0 && step < questions.length && (
           <Question
             {...questions[step]}

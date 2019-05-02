@@ -76,8 +76,8 @@ export const cardsHardMixed = [
   },
   {
     name: "cards_hard_mixed_color_vs_orientation",
-    category1: ["cards/4D_R.png", "cards/KH_R.png"],
-    category2: ["cards/5S.png", "cards/QC.png"],
+    category1: ["cards/5S.png", "cards/QC.png"],
+    category2: ["cards/4D_R.png", "cards/KH_R.png"],
     item: "cards/7H.png"
   }
 ];
