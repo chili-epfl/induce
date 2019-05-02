@@ -18,26 +18,40 @@ const randHex = function() {
 
 const Start = ({ initGame }) => {
   const [gender, setGender] = useState("none");
-
+  const [age, setAge] = useState("none");
+  const recordUser = () => {
+    initGame(gender, age);
+  };
   return (
     <div className="container-start">
-      <span>Gender?</span>
-      <div>
-        <input type="radio" name="gender" value="male" />
-        Male
-      </div>
-      <div>
-        <input type="radio" name="gender" value="female" />
-        Female
-      </div>
-      <div>
-        <input type="radio" name="gender" value="other" />
-        Other
-      </div>
-      <span>Age?</span>
-      <input type="number" />
-      <button onClick={initGame} disabled={gender === "none"}>
-        Start
+      <select onChange={e => setGender(e.target.value)}>
+        <option value="none">...</option>
+        <option value="boy">Garçon</option>
+        <option value="girl">Fille</option>
+        <option value="other">Autre</option>
+      </select>
+
+      <select onChange={e => setAge(e.target.value)}>
+        <option>...</option>
+        <option value="<6">Moins de 6 ans</option>
+        <option value="6">6 ans</option>
+        <option value="7">7 ans</option>
+        <option value="8">8 ans</option>
+        <option value="9">9 ans</option>
+        <option value="10">10 ans</option>
+        <option value="11">11 ans</option>
+        <option value="12">12 ans</option>
+        <option value="13">13 ans</option>
+        <option value="14">14 ans</option>
+        <option value="15">15 ans</option>
+        <option value=">15">Plus de 15 ans</option>
+      </select>
+      <button
+        onClick={recordUser}
+        disabled={gender === "none" || age === "none"}
+        className="start-button"
+      >
+        Let's go!
       </button>
     </div>
   );
@@ -72,13 +86,15 @@ const Question = ({
   correctAnswer
 }) => {
   const [trick, setTrick] = useState("none");
-  const shouldNotTrick = step < 36 || step > 41;
+  // const shouldNotTrick = step < 36 || step > 41;
+  const shouldTrick = step === 36 || step === 38 || step === 40;
+  const shouldNotTrick = !shouldTrick;
   return (
     <div className="question-container">
       <h2 className="title">
         Question {1 + step} / {questions.length}
       </h2>
-      <i className="title">***{name}***</i>
+      {/* <i className="title">***{name}***</i> */}
       <div className="categories-container">
         <div className="category-list">
           {category1.map(e => (
@@ -126,17 +142,17 @@ const GameEnd = ({ restart }) => (
 
 class App extends Component {
   state = {
-    step: 36
+    step: -1
   };
 
   username = "MISSING_ID";
 
-  initGame = () => {
+  initGame = (gender, age) => {
     this.username = randHex();
     this.setState({ step: 0 });
     db.collection("users")
       .doc(this.username)
-      .set({ user: this.username, createdAt: new Date() });
+      .set({ user: this.username, createdAt: new Date(), gender, age });
   };
 
   handleClick = side => {
