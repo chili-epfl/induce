@@ -17,22 +17,14 @@ const randHex = function() {
 };
 
 const Start = ({ initGame }) => {
-  const [gender, setGender] = useState("none");
   const [age, setAge] = useState("none");
   const recordUser = () => {
-    initGame(gender, age);
+    initGame(age);
   };
   return (
     <div className="container-start">
-      <select onChange={e => setGender(e.target.value)}>
-        <option value="none">...</option>
-        <option value="boy">Garçon</option>
-        <option value="girl">Fille</option>
-        <option value="other">Autre</option>
-      </select>
-
       <select onChange={e => setAge(e.target.value)}>
-        <option>...</option>
+        <option value="none">...</option>
         <option value="<6">Moins de 6 ans</option>
         <option value="6">6 ans</option>
         <option value="7">7 ans</option>
@@ -48,7 +40,7 @@ const Start = ({ initGame }) => {
       </select>
       <button
         onClick={recordUser}
-        disabled={gender === "none" || age === "none"}
+        disabled={age === "none"}
         className="start-button"
       >
         Let's go!
@@ -69,7 +61,7 @@ const CustomButton = ({ type, side, onClick, setTrick }) => {
   };
   return (
     <div className="div-button" onClick={handleClick}>
-      {!clicked && <i className={"fa fa-chevron-" + side} />}
+      {!clicked && <i className={"fa fa-arrow-up"} />}
       {clicked && type && <i className="button-green fas fa-check" />}
       {clicked && !type && <i className="button-red fas fa-times" />}
     </div>
@@ -101,7 +93,13 @@ const Question = ({
             <div className="example" key={e}>
               <img src={"images/" + e} alt={e} className="example-image" />
             </div>
-          ))}
+          ))}{" "}
+          <CustomButton
+            type={shouldNotTrick || trick === "right"}
+            side="left"
+            onClick={onClick}
+            setTrick={setTrick}
+          />
         </div>
         <div className="separator" />
         <div className="category-list">
@@ -109,25 +107,19 @@ const Question = ({
             <div className="example" key={e}>
               <img src={"images/" + e} alt={e} className="example-image" />
             </div>
-          ))}
+          ))}{" "}
+          <CustomButton
+            type={shouldNotTrick || trick === "left"}
+            side="right"
+            onClick={onClick}
+            setTrick={setTrick}
+          />
         </div>
       </div>
       <div className="answer-container">
-        <CustomButton
-          type={shouldNotTrick || trick === "right"}
-          side="left"
-          onClick={onClick}
-          setTrick={setTrick}
-        />
         <div className="example">
           <img src={"images/" + item} alt={item} className="example-image" />
         </div>
-        <CustomButton
-          type={shouldNotTrick || trick === "left"}
-          side="right"
-          onClick={onClick}
-          setTrick={setTrick}
-        />
       </div>
     </div>
   );
@@ -135,24 +127,40 @@ const Question = ({
 
 const GameEnd = ({ restart }) => (
   <div>
-    <h2>Thanks for participating</h2>
+    <h2>Merci d'avoir participé!</h2>
     <button onClick={restart}>Start Again</button>
   </div>
 );
 
+const Instructions = ({ start }) => {
+  return (
+    <div className="container-start">
+      <span className="instructions">
+        Le but de cette activité et de deviner les règles qui forment
+        différentes catégories. Pour cela clique sur les bouttons avec le
+        symbole <i className={"fa fa-arrow-up"} /> du côté de la catégorie que
+        tu penses être la bonne pour l'image du bas.
+      </span>
+      <button onClick={start} className="start-button">
+        J'ai compris
+      </button>
+    </div>
+  );
+};
+
 class App extends Component {
   state = {
-    step: -1
+    step: -2
   };
 
   username = "MISSING_ID";
 
-  initGame = (gender, age) => {
+  initGame = age => {
     this.username = randHex();
-    this.setState({ step: 0 });
+    this.setState({ step: -1 });
     db.collection("users")
       .doc(this.username)
-      .set({ user: this.username, createdAt: new Date(), gender, age });
+      .set({ user: this.username, createdAt: new Date(), age });
   };
 
   handleClick = side => {
@@ -177,7 +185,10 @@ class App extends Component {
     const { step } = this.state;
     return (
       <div className="App">
-        {step < 0 && <Start initGame={this.initGame} />}
+        {step === -2 && <Start initGame={this.initGame} />}
+        {step === -1 && (
+          <Instructions start={() => this.setState({ step: 0 })} />
+        )}
         {step >= 0 && step < questions.length && (
           <Question
             {...questions[step]}
@@ -185,7 +196,9 @@ class App extends Component {
             onClick={this.handleClick}
           />
         )}
-        {step >= questions.length && <GameEnd restart={this.initGame} />}
+        {step >= questions.length && (
+          <GameEnd restart={() => this.setState({ step: -2 })} />
+        )}
       </div>
     );
   }

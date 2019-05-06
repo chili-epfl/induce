@@ -3,19 +3,25 @@ export const animalsEasyFixed = [
     name: "animals_easy_fixed_type",
     category1: ["animals/dolphin_R.jpg", "animals/turtle_R.jpg"],
     category2: ["animals/duck2_R.jpg", "animals/pigeon_R.jpg"],
-    item: "animals/orca_R.jpg"
+    item: "animals/orca_R.jpg",
+    correct: 1,
+    hint: "Penser aux famille des ces animaux"
   },
   {
     name: "animals_easy_fixed_orientation",
     category1: ["animals/tiger_R.jpg", "animals/cat_R.jpg"],
     category2: ["animals/cat2_L.jpg", "animals/leopard_L.jpg"],
-    item: "animals/lion_L.jpg"
+    item: "animals/lion_L.jpg",
+    correct: 2,
+    hint: "Regarder dans quelle direction les animaux font face"
   },
   {
     name: "animals_easy_fixed_color",
     category1: ["animals/pigeon_L.jpg", "animals/duck2_L.jpg"],
     category2: ["animals/duck_L.jpg", "animals/parrot_L.jpg"],
-    item: "animals/peacock_L.jpg"
+    item: "animals/peacock_L.jpg",
+    correct: 1,
+    hint: "Est-ce que les animaux sont très colorés ?"
   }
 ];
 
