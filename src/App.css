@@ -38,7 +38,6 @@ select {
 }
 
 .categories-container {
-  flex: 0;
   display: flex;
   flex-direction: row;
   width: calc(100% - 8px);
@@ -57,9 +56,6 @@ select {
 }
 
 .question-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
   max-width: 420px;
   height: 100%;
@@ -154,13 +150,14 @@ select {
 .instructions {
   background-color: #eee;
   border-radius: 8px;
-  padding: 8px;
+  padding: 12px;
   padding-top: 16px;
   padding-bottom: 16px;
   width: 246px;
   font-size: 120%;
   margin-bottom: 16px;
   box-shadow: 0px 0px 8px 0px #666;
+  text-align: left;
 }
 
 .button-red {
