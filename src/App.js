@@ -49,25 +49,6 @@ const Start = ({ initGame }) => {
   );
 };
 
-const CustomButton = ({ type, side, onClick, setTrick }) => {
-  const [clicked, setClicked] = useState(false);
-  const handleClick = () => {
-    if (clicked) return;
-    setClicked(true);
-    if (type) setTimeout(() => onClick(side), 750);
-    if (type) setTimeout(() => setTrick("none"), 750);
-    if (!type) setTrick(side);
-    setTimeout(() => setClicked(false), 750);
-  };
-  return (
-    <div className="div-button" onClick={handleClick}>
-      {!clicked && <i className={"fa fa-arrow-up"} />}
-      {clicked && type && <i className="button-green fas fa-check" />}
-      {clicked && !type && <i className="button-red fas fa-times" />}
-    </div>
-  );
-};
-
 const Question = ({
   name,
   category1,
@@ -75,31 +56,59 @@ const Question = ({
   item,
   step,
   onClick,
-  correctAnswer
+  correct,
+  recordClick,
+  nextQuestion
 }) => {
-  const [trick, setTrick] = useState("none");
+  const [wrong, setWrong] = useState("none");
+  const [check, setCheck] = useState("none");
+  const [waiting, setWaiting] = useState(false);
+
   // const shouldNotTrick = step < 36 || step > 41;
   const shouldTrick = step === 36 || step === 38 || step === 40;
-  const shouldNotTrick = !shouldTrick;
+
+  const handleClick = side => {
+    if (waiting || side === wrong) return;
+
+    recordClick(side);
+    if (
+      (correct === 1 && side === "right") ||
+      (correct === 2 && side === "left")
+    ) {
+      setWrong(side);
+    } else if (shouldTrick && wrong === "none") {
+      setWrong(side);
+    } else {
+      setWaiting(true);
+      setCheck(side);
+      setTimeout(() => {
+        setWrong("none");
+        setCheck("none");
+        setWaiting(false);
+        nextQuestion();
+      }, 750);
+    }
+  };
+
   return (
     <div className="question-container">
       <h2 className="title">
         Question {1 + step} / {questions.length}
       </h2>
-      {/* <i className="title">***{name}***</i> */}
       <div className="categories-container">
         <div className="category-list">
           {category1.map(e => (
             <div className="example" key={e}>
               <img src={"images/" + e} alt={e} className="example-image" />
             </div>
-          ))}{" "}
-          <CustomButton
-            type={shouldNotTrick || trick === "right"}
-            side="left"
-            onClick={onClick}
-            setTrick={setTrick}
-          />
+          ))}
+          <div className="div-button" onClick={() => handleClick("left")}>
+            {check !== "left" && wrong !== "left" && (
+              <i className={"fa fa-arrow-up"} />
+            )}
+            {check === "left" && <i className="button-green fas fa-check" />}
+            {wrong === "left" && <i className="button-red fas fa-times" />}
+          </div>
         </div>
         <div className="separator" />
         <div className="category-list">
@@ -107,13 +116,14 @@ const Question = ({
             <div className="example" key={e}>
               <img src={"images/" + e} alt={e} className="example-image" />
             </div>
-          ))}{" "}
-          <CustomButton
-            type={shouldNotTrick || trick === "left"}
-            side="right"
-            onClick={onClick}
-            setTrick={setTrick}
-          />
+          ))}
+          <div className="div-button" onClick={() => handleClick("right")}>
+            {check !== "right" && wrong !== "right" && (
+              <i className={"fa fa-arrow-up"} />
+            )}
+            {check === "right" && <i className="button-green fas fa-check" />}
+            {wrong === "right" && <i className="button-red fas fa-times" />}
+          </div>
         </div>
       </div>
       <div className="answer-container">
@@ -163,7 +173,7 @@ class App extends Component {
       .set({ user: this.username, createdAt: new Date(), age });
   };
 
-  handleClick = side => {
+  recordClick = side => {
     const { step } = this.state;
     db.collection("users/" + this.username + "/answers")
       .add({
@@ -178,6 +188,10 @@ class App extends Component {
       .catch(function(error) {
         console.error("Error adding document: ", error);
       });
+  };
+
+  nextQuestion = () => {
+    const { step } = this.state;
     this.setState({ step: step + 1 });
   };
 
@@ -193,7 +207,8 @@ class App extends Component {
           <Question
             {...questions[step]}
             step={step}
-            onClick={this.handleClick}
+            recordClick={this.recordClick}
+            nextQuestion={this.nextQuestion}
           />
         )}
         {step >= questions.length && (

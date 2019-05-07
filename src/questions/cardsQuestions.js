@@ -3,40 +3,46 @@ export const cardsEasyFixed = [
     name: "cards_easy_fixed_type",
     category1: ["cards/2D.png", "cards/6D.png"],
     category2: ["cards/QD.png", "cards/KD.png"],
-    item: "cards/JD.png"
+    item: "cards/JD.png",
+    correct: 2
   },
   {
     name: "cards_easy_fixed_color",
     category1: ["cards/4H_R.png", "cards/3D_R.png"],
     category2: ["cards/4C_R.png", "cards/3S_R.png"],
-    item: "cards/4D_R.png"
+    item: "cards/4D_R.png",
+    correct: 1
   },
   {
     name: "cards_easy_fixed_orientation",
     category1: ["cards/KC.png", "cards/JS.png"],
     category2: ["cards/JC_R.png", "cards/KS_R.png"],
-    item: "cards/QS_R.png"
+    item: "cards/QS_R.png",
+    correct: 2
   }
 ];
 
 export const cardsEasyMixed = [
   {
     name: "cards_easy_mixed_orientation",
-    category1: ["cards/4H_R.png", "cards/KS_R.png"],
-    category2: ["cards/JH.png", "cards/6S.png"],
-    item: "cards/QS_R.png"
+    category1: ["cards/JH.png", "cards/6S.png"],
+    category2: ["cards/4H_R.png", "cards/KS_R.png"],
+    item: "cards/QS_R.png",
+    correct: 2
   },
   {
     name: "cards_easy_mixed_color",
     category1: ["cards/KH_R.png", "cards/10D.png"],
     category2: ["cards/7C.png", "cards/KS_R.png"],
-    item: "cards/8H.png"
+    item: "cards/8H.png",
+    correct: 1
   },
   {
     name: "cards_easy_mixed_type",
     category1: ["cards/8S_R.png", "cards/6D.png"],
     category2: ["cards/KS_R.png", "cards/JD.png"],
-    item: "cards/5D.png"
+    item: "cards/5D.png",
+    correct: 1
   }
 ];
 

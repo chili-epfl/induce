@@ -20,7 +20,7 @@ export const animalsEasyFixed = [
     category1: ["animals/pigeon_L.jpg", "animals/duck2_L.jpg"],
     category2: ["animals/duck_L.jpg", "animals/parrot_L.jpg"],
     item: "animals/peacock_L.jpg",
-    correct: 1,
+    correct: 2,
     hint: "Est-ce que les animaux sont très colorés ?"
   }
 ];
@@ -30,19 +30,22 @@ export const animalsEasyMixed = [
     name: "animals_easy_mixed_type",
     category1: ["animals/dolphin_R.jpg", "animals/fish_L.jpg"],
     category2: ["animals/pigeon_R.jpg", "animals/parrot_L.jpg"],
-    item: "animals/orca_R.jpg"
+    item: "animals/orca_R.jpg",
+    correct: 1
   },
   {
     name: "animals_easy_mixed_orientation",
     category1: ["animals/lion_R.jpg", "animals/pigeon_R.jpg"],
     category2: ["animals/parrot_L.jpg", "animals/leopard_L.jpg"],
-    item: "animals/orca_R.jpg"
+    item: "animals/orca_R.jpg",
+    correct: 1
   },
   {
     name: "animals_easy_mixed_color",
-    category1: ["animals/pigeon_L.jpg", "animals/dolphin_R.jpg"],
-    category2: ["animals/fish_R.jpg", "animals/parrot_L.jpg"],
-    item: "animals/cat_L.jpg"
+    category1: ["animals/fish_R.jpg", "animals/parrot_L.jpg"],
+    category2: ["animals/pigeon_L.jpg", "animals/dolphin_R.jpg"],
+    item: "animals/cat_L.jpg",
+    correct: 2
   }
 ];
 
