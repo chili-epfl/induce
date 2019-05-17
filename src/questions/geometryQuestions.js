@@ -4,7 +4,8 @@ export const geometryEasyFixed = [
     category1: ["geometry/rectangle_r4.png", "geometry/square_r2.png"],
     category2: ["geometry/rectangle_b2.png", "geometry/square_b1.png"],
     item: "geometry/rectangle_r2.png",
-    correct: 1
+    correct: 1,
+    hint: "Les formes ont des couleurs différentes"
   },
   {
     name: "geometry_easy_fixed_type",
@@ -14,14 +15,16 @@ export const geometryEasyFixed = [
       "geometry/parallelogram_g5.png"
     ],
     item: "geometry/parallelogram_g2.png",
-    correct: 2
+    correct: 2,
+    hint: "Les formes ont des angles differents"
   },
   {
     name: "geometry_easy_fixed_orientation",
     category1: ["geometry/rectangle_b3.png", "geometry/square_b1.png"],
     category2: ["geometry/rectangle_b1.png", "geometry/square_b2.png"],
     item: "geometry/rectangle_b2.png",
-    correct: 1
+    correct: 1,
+    hint: "Les formes ont des orientations différentes"
   }
 ];
 
@@ -54,7 +57,7 @@ export const geometryEasyMixed = [
 
 export const geometryHardFixed = [
   {
-    name: "geometry_hard_fixed_rotation_vs_type",
+    name: "geometry_hard_fixed_orientation_vs_type",
     category1: [
       "geometry/parallelogram_b1.png",
       "geometry/parallelogram_b2.png"
@@ -63,25 +66,25 @@ export const geometryHardFixed = [
     item: "geometry/rectangle_b2.png"
   },
   {
+    name: "geometry_hard_fixed_orientation_vs_color",
+    category1: ["geometry/rectangle_g2.png", "geometry/square_g1.png"],
+    category2: ["geometry/rectangle_r1.png", "geometry/rectangle_r3.png"],
+    item: "geometry/rectangle_r4.png"
+  },
+  {
     name: "geometry_hard_fixed_color_vs_type",
-    category1: ["geometry/square_r1.png", "geometry/rectangle_r3.png"],
+    category1: ["geometry/rectangle_b4.png", "geometry/square_b2.png"],
     category2: [
       "geometry/parallelogram_g2.png",
       "geometry/parallelogram_g5.png"
     ],
-    item: "geometry/parallelogram_r3.png"
-  },
-  {
-    name: "geometry_medium_fixed_rotation_vs_color",
-    category1: ["geometry/rectangle_g2.png", "geometry/square_g1.png"],
-    category2: ["geometry/rectangle_b1.png", "geometry/square_b2.png"],
-    item: "geometry/rectangle_b2.png"
+    item: "geometry/parallelogram_b3.png"
   }
 ];
 
 export const geometryHardMixed = [
   {
-    name: "geometry_hard_mixed_rotation_vs_type",
+    name: "geometry_hard_mixed_orientation_vs_type",
     category1: [
       "geometry/parallelogram_g1.png",
       "geometry/parallelogram_b2.png"
@@ -90,7 +93,7 @@ export const geometryHardMixed = [
     item: "geometry/rectangle_r4.png"
   },
   {
-    name: "geometry_medium_mixed_rotation_vs_color",
+    name: "geometry_hard_mixed_orientation_vs_color",
     category1: ["geometry/parallelogram_g1.png", "geometry/rectangle_g2.png"],
     category2: ["geometry/rectangle_r1.png", "geometry/parallelogram_r3.png"],
     item: "geometry/rectangle_r2.png"
@@ -98,10 +101,10 @@ export const geometryHardMixed = [
   {
     name: "geometry_hard_mixed_color_vs_type",
     category1: [
-      "geometry/parallelogram_g1.png",
-      "geometry/parallelogram_g2.png"
+      "geometry/parallelogram_b1.png",
+      "geometry/parallelogram_b3.png"
     ],
     category2: ["geometry/rectangle_r1.png", "geometry/rectangle_r2.png"],
-    item: "geometry/rectangle_g2.png"
+    item: "geometry/rectangle_b2.png"
   }
 ];

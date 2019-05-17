@@ -58,14 +58,24 @@ const Question = ({
   onClick,
   correct,
   recordClick,
-  nextQuestion
+  nextQuestion,
+  hint
 }) => {
   const [wrong, setWrong] = useState("none");
   const [check, setCheck] = useState("none");
   const [waiting, setWaiting] = useState(false);
+  const [inverted, setInverted] = useState(Math.random() > 0.5);
 
-  // const shouldNotTrick = step < 36 || step > 41;
-  const shouldTrick = step === 36 || step === 38 || step === 40;
+  const shouldTrick = [36, 38, 40, 45, 47, 49, 54, 56, 58].includes(step);
+  const hasHint = hint !== undefined;
+
+  const customNextQuestion = () => {
+    setWrong("none");
+    setCheck("none");
+    setWaiting(false);
+    setInverted(Math.random() > 0.5);
+    nextQuestion();
+  };
 
   const handleClick = side => {
     if (waiting || side === wrong) return;
@@ -81,51 +91,76 @@ const Question = ({
     } else {
       setWaiting(true);
       setCheck(side);
-      setTimeout(() => {
-        setWrong("none");
-        setCheck("none");
-        setWaiting(false);
-        nextQuestion();
-      }, 750);
+      if ((!hasHint && !shouldTrick) || wrong !== "none")
+        setTimeout(customNextQuestion, 750);
     }
   };
+
+  const LEFT = (
+    <div className="category-list">
+      {category1.map(e => (
+        <div className="example" key={e}>
+          <img src={"images/" + e} alt={e} className="example-image" />
+        </div>
+      ))}
+      <div className="div-button" onClick={() => handleClick("left")}>
+        {check !== "left" && wrong !== "left" && (
+          <i className={"fa fa-arrow-up"} />
+        )}
+        {check === "left" && <i className="button-green fas fa-check" />}
+        {wrong === "left" && <i className="button-red fas fa-times" />}
+      </div>
+    </div>
+  );
+
+  const RIGHT = (
+    <div className="category-list">
+      {category2.map(e => (
+        <div className="example" key={e}>
+          <img src={"images/" + e} alt={e} className="example-image" />
+        </div>
+      ))}
+      <div className="div-button" onClick={() => handleClick("right")}>
+        {check !== "right" && wrong !== "right" && (
+          <i className={"fa fa-arrow-up"} />
+        )}
+        {check === "right" && <i className="button-green fas fa-check" />}
+        {wrong === "right" && <i className="button-red fas fa-times" />}
+      </div>
+    </div>
+  );
 
   return (
     <div className="question-container">
       <h2 className="title">
         Question {1 + step} / {questions.length}
       </h2>
+      {/* <p>***{name}***</p> */}
       <div className="categories-container">
-        <div className="category-list">
-          {category1.map(e => (
-            <div className="example" key={e}>
-              <img src={"images/" + e} alt={e} className="example-image" />
-            </div>
-          ))}
-          <div className="div-button" onClick={() => handleClick("left")}>
-            {check !== "left" && wrong !== "left" && (
-              <i className={"fa fa-arrow-up"} />
-            )}
-            {check === "left" && <i className="button-green fas fa-check" />}
-            {wrong === "left" && <i className="button-red fas fa-times" />}
-          </div>
-        </div>
+        {inverted ? RIGHT : LEFT}
         <div className="separator" />
-        <div className="category-list">
-          {category2.map(e => (
-            <div className="example" key={e}>
-              <img src={"images/" + e} alt={e} className="example-image" />
-            </div>
-          ))}
-          <div className="div-button" onClick={() => handleClick("right")}>
-            {check !== "right" && wrong !== "right" && (
-              <i className={"fa fa-arrow-up"} />
-            )}
-            {check === "right" && <i className="button-green fas fa-check" />}
-            {wrong === "right" && <i className="button-red fas fa-times" />}
-          </div>
-        </div>
+        {inverted ? LEFT : RIGHT}
       </div>
+
+      {hasHint && (wrong !== "none" || check !== "none") && (
+        <div className="hint-container">
+          <span className="hint-text">{hint}</span>
+          {wrong === "none" && (
+            <div className="hint-button" onClick={customNextQuestion}>
+              OK
+            </div>
+          )}
+        </div>
+      )}
+
+      {shouldTrick && (wrong !== "none" || check !== "none") && (
+        <div className="hint-container">
+          <span className="hint-text">
+            Trouve une autre règle qui explique ces catégories
+          </span>
+        </div>
+      )}
+
       <div className="answer-container">
         <div className="example">
           <img src={"images/" + item} alt={item} className="example-image" />
@@ -138,7 +173,6 @@ const Question = ({
 const GameEnd = ({ restart }) => (
   <div>
     <h2>Merci d'avoir participé!</h2>
-    <button onClick={restart}>Start Again</button>
   </div>
 );
 
@@ -152,7 +186,7 @@ const Instructions = ({ start }) => {
         tu penses être la bonne pour l'image du bas.
       </span>
       <button onClick={start} className="start-button">
-        J'ai compris
+        OK
       </button>
     </div>
   );
