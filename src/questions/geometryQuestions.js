@@ -5,7 +5,10 @@ export const geometryEasyFixed = [
     category2: ["geometry/rectangle_b2.png", "geometry/square_b1.png"],
     item: "geometry/rectangle_r2.png",
     correct: 1,
-    hint: "Les formes ont des couleurs différentes"
+    hint: {
+      fr: "Les formes ont des couleurs différentes",
+      en: "The shapes have different colors"
+    }
   },
   {
     name: "geometry_easy_fixed_type",
@@ -16,7 +19,10 @@ export const geometryEasyFixed = [
     ],
     item: "geometry/parallelogram_g2.png",
     correct: 2,
-    hint: "Les formes ont des angles differents"
+    hint: {
+      fr: "Les formes ont des angles differents",
+      en: "The shapes have different angles"
+    }
   },
   {
     name: "geometry_easy_fixed_orientation",
@@ -24,7 +30,10 @@ export const geometryEasyFixed = [
     category2: ["geometry/rectangle_b1.png", "geometry/square_b2.png"],
     item: "geometry/rectangle_b2.png",
     correct: 1,
-    hint: "Les formes ont des orientations différentes"
+    hint: {
+      fr: "Les formes ont des orientations différentes",
+      en: "The shapes have different orientation"
+    }
   }
 ];
 

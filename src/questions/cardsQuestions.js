@@ -5,7 +5,10 @@ export const cardsEasyFixed = [
     category2: ["cards/QD.png", "cards/KD.png"],
     item: "cards/JD.png",
     correct: 2,
-    hint: "Les cartes sont soit un nombre soit une figure"
+    hint: {
+      fr: "Les cartes sont soit un nombre soit une figure",
+      en: "The cards are either a number or a figure"
+    }
   },
   {
     name: "cards_easy_fixed_color",
@@ -13,7 +16,10 @@ export const cardsEasyFixed = [
     category2: ["cards/4C_R.png", "cards/3S_R.png"],
     item: "cards/4D_R.png",
     correct: 1,
-    hint: "Les cartes sont rouges ou noires"
+    hint: {
+      fr: "Les cartes sont rouges ou noires",
+      en: "The cards are either red or black"
+    }
   },
   {
     name: "cards_easy_fixed_orientation",
@@ -21,7 +27,10 @@ export const cardsEasyFixed = [
     category2: ["cards/JC_R.png", "cards/KS_R.png"],
     item: "cards/QS_R.png",
     correct: 2,
-    hint: "Les cartes sont verticales ou horizontales"
+    hint: {
+      fr: "Les cartes sont verticales ou horizontales",
+      en: "The cards are either vertical or horizontal"
+    }
   }
 ];
 

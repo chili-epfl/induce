@@ -6,6 +6,13 @@ import firebase from "firebase";
 
 const db = firebase.firestore();
 
+const url = new URL(window.location.href);
+const lang = url.searchParams.get("l") || "fr";
+console.log(lang);
+
+const collectData = url.searchParams.get("c") || "yes";
+console.log(collectData);
+
 // random hex string generator
 // Copied from https://codepen.io/code_monk/pen/FvpfI
 const randHex = function() {
@@ -15,6 +22,8 @@ const randHex = function() {
   const r = n.toString(16);
   return r;
 };
+
+const username = randHex();
 
 const Start = ({ initGame }) => {
   const [age, setAge] = useState("none");
@@ -135,7 +144,7 @@ const Question = ({
       <h2 className="title">
         Question {1 + step} / {questions.length}
       </h2>
-      {/* <p>***{name}***</p> */}
+      <p>***{name}***</p>
       <div className="categories-container">
         {inverted ? RIGHT : LEFT}
         <div className="separator" />
@@ -144,7 +153,7 @@ const Question = ({
 
       {hasHint && (wrong !== "none" || check !== "none") && (
         <div className="hint-container">
-          <span className="hint-text">{hint}</span>
+          <span className="hint-text">{hint[lang]}</span>
           {wrong === "none" && (
             <div className="hint-button" onClick={customNextQuestion}>
               OK
@@ -156,7 +165,9 @@ const Question = ({
       {shouldTrick && (wrong !== "none" || check !== "none") && (
         <div className="hint-container">
           <span className="hint-text">
-            Trouve une autre règle qui explique ces catégories
+            {lang === "fr" &&
+              "Trouve une autre règle qui explique ces catégories"}
+            {lang === "en" && "Find another rule to explain these categories"}
           </span>
         </div>
       )}
@@ -172,7 +183,8 @@ const Question = ({
 
 const GameEnd = ({ restart }) => (
   <div>
-    <h2>Merci d'avoir participé!</h2>
+    {lang === "fr" && <h2>Merci d'avoir participé!</h2>}
+    {lang === "en" && <h2>Thank you for your participation!</h2>}
   </div>
 );
 
@@ -197,31 +209,32 @@ class App extends Component {
     step: -2
   };
 
-  username = "MISSING_ID";
-
   initGame = age => {
-    this.username = randHex();
     this.setState({ step: -1 });
-    db.collection("users")
-      .doc(this.username)
-      .set({ user: this.username, createdAt: new Date(), age });
+    if (collectData !== "no") {
+      db.collection("users")
+        .doc(username)
+        .set({ user: username, createdAt: new Date(), age });
+    }
   };
 
   recordClick = side => {
     const { step } = this.state;
-    db.collection("users/" + this.username + "/answers")
-      .add({
-        step,
-        question: questions[step].name,
-        choice: side,
-        createdAt: new Date()
-      })
-      .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
-      })
-      .catch(function(error) {
-        console.error("Error adding document: ", error);
-      });
+    if (collectData !== "no") {
+      db.collection("users/" + username + "/answers")
+        .add({
+          step,
+          question: questions[step].name,
+          choice: side,
+          createdAt: new Date()
+        })
+        .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function(error) {
+          console.error("Error adding document: ", error);
+        });
+    }
   };
 
   nextQuestion = () => {
@@ -233,6 +246,9 @@ class App extends Component {
     const { step } = this.state;
     return (
       <div className="App">
+        <span className="username">
+          {username}-{lang}-{collectData}
+        </span>
         {step === -2 && <Start initGame={this.initGame} />}
         {step === -1 && (
           <Instructions start={() => this.setState({ step: 0 })} />
