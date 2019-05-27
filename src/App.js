@@ -34,25 +34,29 @@ const Start = ({ initGame }) => {
     <div className="container-start">
       <select onChange={e => setAge(e.target.value)}>
         <option value="none">...</option>
-        <option value="<6">Moins de 6 ans</option>
-        <option value="6">6 ans</option>
-        <option value="7">7 ans</option>
-        <option value="8">8 ans</option>
-        <option value="9">9 ans</option>
-        <option value="10">10 ans</option>
-        <option value="11">11 ans</option>
-        <option value="12">12 ans</option>
-        <option value="13">13 ans</option>
-        <option value="14">14 ans</option>
-        <option value="15">15 ans</option>
-        <option value=">15">Plus de 15 ans</option>
+        <option value="<6">
+          {lang === "fr" ? "Moins de 6 ans" : "Less than 6 years old"}
+        </option>
+        <option value="6">{lang === "fr" ? "6 ans" : "6 years old"}</option>
+        <option value="7">{lang === "fr" ? "7 ans" : "7 years old"}</option>
+        <option value="8">{lang === "fr" ? "8 ans" : "8 years old"}</option>
+        <option value="9">{lang === "fr" ? "9 ans" : "9 years old"}</option>
+        <option value="10">{lang === "fr" ? "10 ans" : "10 years old"}</option>
+        <option value="11">{lang === "fr" ? "11 ans" : "11 years old"}</option>
+        <option value="12">{lang === "fr" ? "12 ans" : "12 years old"}</option>
+        <option value="13">{lang === "fr" ? "13 ans" : "13 years old"}</option>
+        <option value="14">{lang === "fr" ? "14 ans" : "14 years old"}</option>
+        <option value="15">{lang === "fr" ? "15 ans" : "15 years old"}</option>
+        <option value=">15">
+          {lang === "fr" ? "Plus de 15 ans" : "More than 15 years old"}
+        </option>
       </select>
       <button
         onClick={recordUser}
         disabled={age === "none"}
         className="start-button"
       >
-        Let's go!
+        Start
       </button>
     </div>
   );
