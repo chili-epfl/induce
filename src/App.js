@@ -13,6 +13,34 @@ console.log(lang);
 const collectData = url.searchParams.get("c") || "yes";
 console.log(collectData);
 
+const preloadImages = () => {
+  const images = new Array();
+  questions.forEach(q => {
+    const [src1, src2] = q.category1;
+    const [src3, src4] = q.category2;
+    const src5 = q.item;
+
+    const img1 = new Image();
+    const img2 = new Image();
+    const img3 = new Image();
+    const img4 = new Image();
+    const img5 = new Image();
+
+    img1.src = src1;
+    img2.src = src2;
+    img3.src = src3;
+    img4.src = src4;
+    img5.src = src5;
+
+    images.push(img1);
+    images.push(img2);
+    images.push(img3);
+    images.push(img4);
+    images.push(img5);
+  });
+};
+setTimeout(preloadImages, 250);
+
 // random hex string generator
 // Copied from https://codepen.io/code_monk/pen/FvpfI
 const randHex = function() {
