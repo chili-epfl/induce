@@ -78,36 +78,39 @@ export default [
   ...BHM,
   ...CHM, // 34 - 36
 
-  AHF[0], // 37
-  AHM[0],
-  BHF[0],
-  BHM[0],
-  CHF[0],
-  CHM[0], // 42
+  // color_vs_type
+  geometryHardFixed[0], // 37
+  geometryHardMixed[0],
+  cardsHardFixed[0],
+  cardsHardMixed[0],
+  animalsHardFixed[0],
+  animalsHardMixed[0], // 42
 
-  AHF[0], // 43
-  BHF[0],
-  CHF[0], // 45
+  geometryHardFixed[0], // 43
+  cardsHardFixed[0],
+  animalsHardFixed[0], // 45
 
-  BHF[1], // 46
-  BHM[1],
-  CHF[1],
-  CHM[1],
-  AHF[1],
-  AHM[1], // 51
+  // color_vs_orientation
+  animalsHardFixed[1], // 46
+  animalsHardMixed[1],
+  cardsHardFixed[1],
+  cardsHardMixed[1],
+  geometryHardFixed[1],
+  geometryHardMixed[1], // 51
 
-  BHF[1], // 52
-  CHF[1],
-  AHF[1], // 54
+  animalsHardFixed[1], // 52
+  cardsHardFixed[1],
+  geometryHardFixed[1], // 54
 
-  CHF[2], // 55
-  CHM[2],
-  AHF[2],
-  AHM[2],
-  BHF[2],
-  BHM[2], // 60
+  // type_vs_orientation
+  cardsHardFixed[2], // 55
+  cardsHardMixed[2],
+  geometryHardFixed[2],
+  geometryHardMixed[2],
+  animalsHardFixed[2],
+  animalsHardMixed[2], // 60
 
-  CHF[2], // 61
-  AHF[2],
-  BHF[2] // 63
+  cardsHardFixed[2], // 61
+  geometryHardFixed[2],
+  animalsHardFixed[2] // 63
 ];

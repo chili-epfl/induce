@@ -144,7 +144,7 @@ const Question = ({
       <h2 className="title">
         Question {1 + step} / {questions.length}
       </h2>
-      <p>***{name}***</p>
+      {/* <p>***{name}***</p> */}
       <div className="categories-container">
         {inverted ? RIGHT : LEFT}
         <div className="separator" />
@@ -191,12 +191,22 @@ const GameEnd = ({ restart }) => (
 const Instructions = ({ start }) => {
   return (
     <div className="container-start">
-      <span className="instructions">
-        Le but de cette activité et de deviner les règles qui forment
-        différentes catégories. Pour cela clique sur les bouttons avec le
-        symbole <i className={"fa fa-arrow-up"} /> du côté de la catégorie que
-        tu penses être la bonne pour l'image du bas.
-      </span>
+      {lang === "fr" && (
+        <span className="instructions">
+          Le but de cette activité et de deviner les règles qui forment
+          différentes catégories. Pour cela clique sur les bouttons avec le
+          symbole <i className={"fa fa-arrow-up"} /> du côté de la catégorie que
+          tu penses être la bonne pour l'image du bas.
+        </span>
+      )}
+      {lang === "en" && (
+        <span className="instructions">
+          The goal of this activity is to guess rules which form categories. For
+          this you must click the button with the symbol{" "}
+          <i className={"fa fa-arrow-up"} /> on the side of the category where
+          the below example belongs.
+        </span>
+      )}
       <button onClick={start} className="start-button">
         OK
       </button>
