@@ -6,12 +6,8 @@ import firebase from "firebase";
 
 const db = firebase.firestore();
 
-const url = new URL(window.location.href);
-const lang = url.searchParams.get("l") || "fr";
-console.log(lang);
-
-const collectData = url.searchParams.get("c") || "yes";
-console.log(collectData);
+var lang = "en";
+var collectData = "yes";
 
 const preloadImages = () => {
   const sources = new Array();
@@ -43,33 +39,71 @@ const username = randHex();
 
 const Start = ({ initGame }) => {
   const [age, setAge] = useState("none");
+  const [_lang, setLang] = useState("none");
+  const [_consent, setConsent] = useState("none");
+
   const recordUser = () => {
+    lang = _lang;
+    collectData = _consent;
     initGame(age);
   };
+
   return (
     <div className="container-start">
-      <select onChange={e => setAge(e.target.value)}>
-        <option value="none">...</option>
-        <option value="<6">
-          {lang === "fr" ? "Moins de 6 ans" : "Less than 6 years old"}
-        </option>
-        <option value="6">{lang === "fr" ? "6 ans" : "6 years old"}</option>
-        <option value="7">{lang === "fr" ? "7 ans" : "7 years old"}</option>
-        <option value="8">{lang === "fr" ? "8 ans" : "8 years old"}</option>
-        <option value="9">{lang === "fr" ? "9 ans" : "9 years old"}</option>
-        <option value="10">{lang === "fr" ? "10 ans" : "10 years old"}</option>
-        <option value="11">{lang === "fr" ? "11 ans" : "11 years old"}</option>
-        <option value="12">{lang === "fr" ? "12 ans" : "12 years old"}</option>
-        <option value="13">{lang === "fr" ? "13 ans" : "13 years old"}</option>
-        <option value="14">{lang === "fr" ? "14 ans" : "14 years old"}</option>
-        <option value="15">{lang === "fr" ? "15 ans" : "15 years old"}</option>
-        <option value=">15">
-          {lang === "fr" ? "Plus de 15 ans" : "More than 15 years old"}
-        </option>
+      <select onChange={e => setLang(e.target.value)} value={_lang}>
+        <option value="none">Language / Langue</option>
+        <option value="fr">Français</option>
+        <option value="en">English</option>
       </select>
+      {_lang !== "none" && (
+        <select onChange={e => setConsent(e.target.value)} value={_consent}>
+          <option value="none">
+            {_lang === "fr"
+              ? "Avez vous un formulaire de consentement ?"
+              : "Do you have a consent form?"}
+          </option>
+          <option value="yes">{_lang === "fr" ? "Oui" : "Yes"}</option>
+          <option value="no">{_lang === "fr" ? "Non" : "No"}</option>
+        </select>
+      )}
+      {_consent !== "none" && _lang !== "none" && (
+        <select onChange={e => setAge(e.target.value)} value={age}>
+          <option value="none">
+            {_lang === "fr" ? "Quel age avez vous ?" : "How old are you?"}
+          </option>
+          <option value="<6">
+            {_lang === "fr" ? "Moins de 6 ans" : "Less than 6 years old"}
+          </option>
+          <option value="6">{_lang === "fr" ? "6 ans" : "6 years old"}</option>
+          <option value="7">{_lang === "fr" ? "7 ans" : "7 years old"}</option>
+          <option value="8">{_lang === "fr" ? "8 ans" : "8 years old"}</option>
+          <option value="9">{_lang === "fr" ? "9 ans" : "9 years old"}</option>
+          <option value="10">
+            {_lang === "fr" ? "10 ans" : "10 years old"}
+          </option>
+          <option value="11">
+            {_lang === "fr" ? "11 ans" : "11 years old"}
+          </option>
+          <option value="12">
+            {_lang === "fr" ? "12 ans" : "12 years old"}
+          </option>
+          <option value="13">
+            {_lang === "fr" ? "13 ans" : "13 years old"}
+          </option>
+          <option value="14">
+            {_lang === "fr" ? "14 ans" : "14 years old"}
+          </option>
+          <option value="15">
+            {_lang === "fr" ? "15 ans" : "15 years old"}
+          </option>
+          <option value=">15">
+            {_lang === "fr" ? "Plus de 15 ans" : "More than 15 years old"}
+          </option>
+        </select>
+      )}
       <button
         onClick={recordUser}
-        disabled={age === "none"}
+        disabled={age === "none" || _lang === "none" || _consent === "none"}
         className="start-button"
       >
         Start
@@ -213,10 +247,10 @@ const Instructions = ({ start }) => {
     <div className="container-start">
       {lang === "fr" && (
         <span className="instructions">
-          Le but de cette activité et de deviner les règles qui forment
-          différentes catégories. Pour cela clique sur les bouttons avec le
+          Le but de cette activité est de deviner les règles qui forment
+          différentes catégories. Pour cela cliquez sur les bouttons avec le
           symbole <i className={"fa fa-arrow-up"} /> du côté de la catégorie que
-          tu penses être la bonne pour l'image du bas.
+          vous pensez être la bonne pour l'image du bas.
         </span>
       )}
       {lang === "en" && (
@@ -276,9 +310,7 @@ class App extends Component {
     const { step } = this.state;
     return (
       <div className="App">
-        <span className="username">
-          {username}-{lang}-{collectData}
-        </span>
+        <span className="username">{username}</span>
         {step === -2 && <Start initGame={this.initGame} />}
         {step === -1 && (
           <Instructions start={() => this.setState({ step: 0 })} />
