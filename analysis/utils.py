@@ -1,0 +1,45 @@
+
+accepted_answers = {
+    'C_E_F_T': ['correct', 'wrong'],
+    'C_E_F_C': ['correct', 'wrong'],
+    'C_E_F_O': ['correct', 'wrong'],
+    'A_E_F_T': ['correct', 'wrong'],
+    'A_E_F_O': ['correct', 'wrong'],
+    'A_E_F_C': ['correct', 'wrong'],
+    'G_E_F_C': ['correct', 'wrong'],
+    'G_E_F_T': ['correct', 'wrong'],
+    'G_E_F_O': ['correct', 'wrong'],
+    'A_E_M_T': ['correct', 'wrong'],
+    'A_E_M_O': ['correct', 'wrong'],
+    'A_E_M_C': ['correct', 'wrong'],
+    'G_E_M_O': ['correct', 'wrong'],
+    'G_E_M_C': ['correct', 'wrong'],
+    'G_E_M_T': ['correct', 'wrong'],
+    'C_E_M_O': ['correct', 'wrong'],
+    'C_E_M_C': ['correct', 'wrong'],
+    'C_E_M_T': ['correct', 'wrong'],
+    'C_H_F_CO': ['orientation', 'color'],
+    'C_H_F_CT': ['color', 'type'],
+    'C_H_F_OT': ['orientation', 'type'],
+    'G_H_F_OT': ['orientation', 'type'],
+    'G_H_F_CO': ['orientation', 'color'],
+    'G_H_F_CT': ['color', 'type'],
+    'A_H_F_CT': ['color', 'type'],
+    'A_H_F_OT': ['orientation', 'type'],
+    'A_H_F_CO': ['orientation', 'color'],
+    'C_H_M_CO': ['orientation', 'color'],
+    'C_H_M_CT': ['color', 'type'],
+    'C_H_M_OT': ['orientation', 'type'],
+    'A_H_M_CT': ['color', 'type'],
+    'A_H_M_OT': ['orientation', 'type'],
+    'A_H_M_CO': ['orientation', 'color'],
+    'G_H_M_OT': ['orientation', 'type'],
+    'G_H_M_CO': ['orientation', 'color'],
+    'G_H_M_CT': ['color', 'type']
+}
+
+question_types = ["A_CO", "A_CT", "A_OT", "C_CO",
+                  "C_CT", "C_OT", "G_CO", "G_CT", "G_OT"]
+
+answers = ["color", "color", "orientation", "color",
+           "color", "orientation", "color", "color", "orientation"]
